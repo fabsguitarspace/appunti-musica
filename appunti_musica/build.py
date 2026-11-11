@@ -14,6 +14,7 @@ import sys
 import json
 import os
 import re
+import shlex
 from pathlib import Path
 import shutil
 import subprocess
@@ -63,9 +64,12 @@ def main():
                         help='Default: PROJECT/src/docs/_static/music')
     parser.add_argument('--source', action='append', help='Source basename, repeatable (default: all)')
     parser.add_argument('--force', action='store_true')
+    parser.add_argument('--mp3-options', default='',
+                        help='Extra lame options, e.g. "-m m -b 64" (default: lame defaults, 128 kbps stereo)')
     parser.add_argument('--soundfont-overlay', action='append', type=Path, default=[],
                         help='Additional SoundFont, loaded after the default (repeatable)')
     args = parser.parse_args()
+    mp3_options = shlex.split(args.mp3_options)
     root = args.project.resolve()
     sources_dir = root / 'src/lilypond'
     if args.output_dir is None:
@@ -128,7 +132,8 @@ def main():
                               [digest(path) for path in soundfonts])
             key = signature({'recipe': RECIPE, 'source': digest(src), 'includes': includes,
                              'tools': tool_hashes, 'crop': [crop_version, mupdf_version],
-                             'builder': digest(Path(__file__)), 'soundfont': soundfont_hash})
+                             'builder': digest(Path(__file__)), 'soundfont': soundfont_hash,
+                             **({'mp3': mp3_options} if mp3_options else {})})
             previous = manifest.get(src.name, {})
             products = previous.get('outputs', {})
             valid = (previous.get('signature') == key and products and
@@ -163,7 +168,7 @@ def main():
                         if midis:
                             wav = base.with_suffix('.wav')
                             run([tools['fluidsynth'], '-F', wav, '-ni', *soundfonts, midis[0]], log, root)
-                            run([tools['lame'], wav, base.with_suffix('.mp3')], log, root)
+                            run([tools['lame'], *mp3_options, wav, base.with_suffix('.mp3')], log, root)
                             names += [src.stem + '.midi', src.stem + '.mp3']
                     for name in names:
                         if not (stage / name).is_file() or not (stage / name).stat().st_size:

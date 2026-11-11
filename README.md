@@ -50,7 +50,7 @@ git submodule update --init
 "$PYTHON" "$PROJECT_DIR/tools/appunti-musica/appunti_musica/build.py" --project "$PROJECT_DIR" "$@"
 ```
 
-Opzioni: `--source NOME` (ripetibile), `--force`, `--output-dir`, `--soundfont-overlay FILE`. Senza `--output-dir`, gli output vanno in `PROGETTO/src/docs/_static/music`.
+Opzioni: `--source NOME` (ripetibile), `--force`, `--output-dir`, `--soundfont-overlay FILE`, `--mp3-options "OPZIONI LAME"`. Senza `--mp3-options` gli MP3 sono a 128 kbps stereo, il valore predefinito di `lame`, come in Teoria e Pratica; Repertorio usa `-m m -b 64` (64 kbps mono). Le opzioni entrano nell'impronta: cambiarle fa ricodificare gli audio. Senza `--output-dir`, gli output vanno in `PROGETTO/src/docs/_static/music`.
 
 ### Come vengono risolti i percorsi
 

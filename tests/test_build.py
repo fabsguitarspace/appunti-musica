@@ -29,7 +29,7 @@ elif n == 'pdf2svg':
 elif n == 'fluidsynth':
     Path(a[a.index('-F') + 1]).write_text('wav')
 elif n == 'lame':
-    Path(a[1]).write_text('mp3')
+    Path(a[-1]).write_text('mp3')
 '''
 
 
@@ -119,6 +119,16 @@ def test_build():
         assert (out / 'sample.pdf').read_bytes() == pdf
         (src / 'sample.ly').write_text('% soundfont-overlay: sf/Missing.sf2\nmusic'); run(False)
         assert (out / 'sample.pdf').read_bytes() == pdf
+
+        # MP3 options reach lame and invalidate the fingerprint.
+        (src / 'sample.ly').write_text('music')
+        assert 'Compilo' in run(); assert 'Aggiornato' in run()
+        calls.write_text('')
+        assert 'Compilo' in run(extra=['--mp3-options', '-m m -b 64'])
+        lame = [line for line in calls.read_text().splitlines() if line.startswith('lame ')]
+        assert "'-m', 'm', '-b', '64'" in lame[-1], lame
+        assert 'Aggiornato' in run(extra=['--mp3-options', '-m m -b 64'])
+        assert 'Compilo' in run()  # back to lame defaults
 
         # Explicit output directory still supported.
         other = r / 'other out'
