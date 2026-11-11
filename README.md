@@ -17,6 +17,7 @@ La decisione e il piano di migrazione sono nell'ADR 0004 «Libreria musicale com
 | `lilypond/include/` | macro `my-chart.ly` e `my-scales.ly` |
 | `sf/Jazzernaut.sf2` | soundfont predefinito |
 | `sf/PracticeRhythm.sf2` | soundfont aggiuntivo per basso e batteria |
+| `appunti_musica/logo_variants.py` | varianti del logo per la homepage dei tre volumi (richiede Pillow e numpy) |
 | `tests/test_build.py` | test della pipeline con strumenti simulati |
 
 Origine: `build.py`, le macro, i soundfont e il generatore vengono da appunti-pratica. La sua versione dello script contiene già tutte le funzioni di quella di appunti-teoria. Ad appunti-teoria va comunque `my-scales.ly` di Pratica, perché nessuno dei suoi spartiti la usa.
@@ -57,6 +58,22 @@ Opzioni: `--source NOME` (ripetibile), `--force`, `--output-dir`, `--soundfont-o
 - `\include "include/my-scales.ly"`: LilyPond cerca prima nella cartella del sorgente, poi nella cartella `lilypond/` della libreria, passata con `-I`. Una macro del progetto con lo stesso percorso ha quindi la precedenza.
 - `sf/Jazzernaut.sf2` e `% soundfont-overlay: sf/NOME.sf2`: si usa prima `PROGETTO/src/lilypond/sf/NOME.sf2`, se esiste, poi `sf/NOME.sf2` della libreria.
 - Le macro della libreria e del progetto e tutti i soundfont usati entrano nell'impronta di ogni sorgente: se cambiano, il sorgente viene ricompilato.
+
+## Varianti del logo
+
+Ogni volume ha nella homepage una variante del logo comune; il logo originale resta nella barra in alto (`logo_256.png`).
+
+| Volume | Chitarra | Simbolo | `accent_color` del tema |
+|---|---|---|---|
+| Teoria | blu notte | dodici tacche sul cerchio, come il circolo delle quinte; il Do in alto in blu | `indigo` |
+| Pratica | rosso originale | il pianeta diventa un plettro | `red` |
+| Repertorio | ottone | il pianeta diventa un disco in vinile | `amber` |
+
+```sh
+python3 appunti_musica/logo_variants.py ../appunti-pratica/src/docs/_static/logo.png /tmp/loghi
+```
+
+Lo script scrive `logo-teoria.png`, `logo-pratica.png` e `logo-repertorio.png`. Ognuno va copiato in `src/docs/_static/` del progetto corrispondente, dove lo usa `index.rst`.
 
 ## Requisiti
 

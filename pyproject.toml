@@ -7,3 +7,4 @@ dependencies = []
 
 [project.optional-dependencies]
 music = ["pdfCropMargins==2.2.1"]
+logo = ["Pillow==13.0.0", "numpy==2.5.4"]
