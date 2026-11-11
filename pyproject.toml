@@ -1,0 +1,9 @@
+[project]
+name = "appunti-musica"
+version = "0.1.0"
+description = "Pipeline musicale comune ad appunti-teoria, appunti-pratica e appunti-repertorio"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+music = ["pdfCropMargins==2.2.1"]

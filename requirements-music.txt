@@ -1,0 +1,2 @@
+# Dipendenze Python della pipeline musicale (ritaglio PDF; installa anche PyMuPDF).
+pdfCropMargins==2.2.1

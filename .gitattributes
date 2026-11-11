@@ -1,0 +1,5 @@
+# Musical assets must not undergo line-ending conversion.
+*.pdf binary
+*.midi binary
+*.mp3 binary
+*.sf2 binary
