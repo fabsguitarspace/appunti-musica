@@ -3,3 +3,9 @@
 *.midi binary
 *.mp3 binary
 *.sf2 binary
+
+# Script e sorgenti sempre con fine riga Unix, anche con core.autocrlf=true:
+# uno script .sh con CRLF non parte su macOS e Linux.
+*.sh text eol=lf
+*.py text eol=lf
+*.ly text eol=lf
