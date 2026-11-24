@@ -43,7 +43,7 @@ def test_build():
         (lib / 'lilypond/include').mkdir(parents=True)
         (lib / 'lilypond/include/common.ly').write_text('macro')
         (lib / 'sf').mkdir()
-        (lib / 'sf/Jazzernaut.sf2').write_text('font')
+        (lib / 'sf/AppuntiEPiano.sf2').write_text('font')
         (lib / 'sf/Rhythm.sf2').write_text('library rhythm')
         # Project with spaces in its path; no include/ or sf/ of its own.
         project = r / 'my project'
@@ -75,7 +75,7 @@ def test_build():
         assert (out / 'sample.svg').is_file() and (out / 'sample.mp3').is_file()
         lily = [line for line in calls.read_text().splitlines() if line.startswith('lilypond ')]
         assert str(lib / 'lilypond') in lily[-1] and "'-I'" in lily[-1]
-        assert str(lib / 'sf/Jazzernaut.sf2') in calls.read_text()
+        assert str(lib / 'sf/AppuntiEPiano.sf2') in calls.read_text()
         assert 'Aggiornato' in run()
 
         # Invalidation: missing output, library include, project include, SoundFont, damaged output.
@@ -85,7 +85,7 @@ def test_build():
         (src / 'include').mkdir(); (src / 'include/local.ly').write_text('project macro')
         assert 'Compilo' in run()
         (src / 'include/local.ly').write_text('project macro 2'); assert 'Compilo' in run()
-        (lib / 'sf/Jazzernaut.sf2').write_text('changed font'); assert 'Compilo' in run()
+        (lib / 'sf/AppuntiEPiano.sf2').write_text('changed font'); assert 'Compilo' in run()
         (out / 'sample.svg').write_text('damaged'); assert 'Compilo' in run()
 
         # Failed conversion preserves previous outputs; recovery afterwards.

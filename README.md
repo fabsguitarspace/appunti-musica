@@ -15,7 +15,9 @@ La decisione e il piano di migrazione sono nell'ADR 0004 «Libreria musicale com
 | `appunti_musica/build.py` | LilyPond → PDF → ritaglio → SVG; MIDI → WAV → MP3, con cache a impronte e sostituzione atomica degli output |
 | `appunti_musica/rhythm_soundfont.py` | genera in modo deterministico `sf/PracticeRhythm.sf2` (basso e batteria originali, nessun campione di terzi) |
 | `lilypond/include/` | macro `my-chart.ly` e `my-scales.ly` |
-| `sf/Jazzernaut.sf2` | soundfont predefinito |
+| `appunti_musica/epiano_soundfont.py` | genera in modo deterministico `sf/AppuntiEPiano.sf2` (piano elettrico originale in FM, nessun campione di terzi) |
+| `sf/AppuntiEPiano.sf2` | soundfont predefinito dal 24 novembre 2026: piano elettrico, programma 0 |
+| `sf/Jazzernaut.sf2` | chitarra campionata, soundfont predefinito fino al 23 novembre 2026; non più usato |
 | `sf/PracticeRhythm.sf2` | soundfont aggiuntivo per basso e batteria |
 | `appunti_musica/logo_variants.py` | varianti del logo per la homepage dei tre volumi (richiede Pillow e numpy) |
 | `tests/test_build.py` | test della pipeline con strumenti simulati |
@@ -56,7 +58,7 @@ Opzioni: `--source NOME` (ripetibile), `--force`, `--output-dir`, `--soundfont-o
 
 - I sorgenti si trovano in `PROGETTO/src/lilypond/*.ly`.
 - `\include "include/my-scales.ly"`: LilyPond cerca prima nella cartella del sorgente, poi nella cartella `lilypond/` della libreria, passata con `-I`. Una macro del progetto con lo stesso percorso ha quindi la precedenza.
-- `sf/Jazzernaut.sf2` e `% soundfont-overlay: sf/NOME.sf2`: si usa prima `PROGETTO/src/lilypond/sf/NOME.sf2`, se esiste, poi `sf/NOME.sf2` della libreria.
+- `sf/AppuntiEPiano.sf2` e `% soundfont-overlay: sf/NOME.sf2`: si usa prima `PROGETTO/src/lilypond/sf/NOME.sf2`, se esiste, poi `sf/NOME.sf2` della libreria.
 - Le macro della libreria e del progetto e tutti i soundfont usati entrano nell'impronta di ogni sorgente: se cambiano, il sorgente viene ricompilato.
 
 ## Varianti del logo

@@ -92,7 +92,7 @@ def main():
         mupdf_version = importlib.metadata.version('PyMuPDF')
     except importlib.metadata.PackageNotFoundError:
         parser.error('Missing cropping dependencies: install requirements-music.txt with this Python')
-    soundfont = locate(sources_dir, 'sf/Jazzernaut.sf2')
+    soundfont = locate(sources_dir, 'sf/AppuntiEPiano.sf2')
     if not soundfont.is_file():
         parser.error('Missing soundfont: ' + str(soundfont))
     # Hash executables rather than relying on inconsistent --version options.
