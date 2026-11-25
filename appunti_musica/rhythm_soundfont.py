@@ -2,8 +2,8 @@
 """Deterministic original bass/percussion samples in a small SoundFont overlay.
 
 No third-party audio samples. Program 33/bank 0: bass; program 0/bank 128:
-GM kick 36, snare 38, closed hat 42, ride 51. Overlay leaves guitar preset 0
-untouched. Uses standard-library DSP and the SoundFont 2 format.
+GM kick 36, snare 38, closed hat 42, ride 51. Overlay leaves preset 0
+(the default electric piano) untouched. Uses standard-library DSP and the SoundFont 2 format.
 """
 from pathlib import Path
 import math,random,struct,array

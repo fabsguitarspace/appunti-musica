@@ -17,7 +17,6 @@ La decisione e il piano di migrazione sono nell'ADR 0004 «Libreria musicale com
 | `lilypond/include/` | macro `my-chart.ly` e `my-scales.ly` |
 | `appunti_musica/epiano_soundfont.py` | genera in modo deterministico `sf/AppuntiEPiano.sf2` (piano elettrico originale in FM, nessun campione di terzi) |
 | `sf/AppuntiEPiano.sf2` | soundfont predefinito dal 24 novembre 2026: piano elettrico, programma 0 |
-| `sf/Jazzernaut.sf2` | chitarra campionata, soundfont predefinito fino al 23 novembre 2026; non più usato |
 | `sf/PracticeRhythm.sf2` | soundfont aggiuntivo per basso e batteria |
 | `appunti_musica/logo_variants.py` | varianti del logo per la homepage dei tre volumi (richiede Pillow e numpy) |
 | `tests/test_build.py` | test della pipeline con strumenti simulati |
